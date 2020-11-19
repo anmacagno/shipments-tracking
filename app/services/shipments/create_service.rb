@@ -15,7 +15,11 @@ module Shipments
 
     def create_shipment
       shipment = Shipment.new(carrier: carrier, tracking_reference: tracking_reference)
-      shipment.save
+      if shipment.save
+        OpenStruct.new(success?: true, shipment: shipment, errors: nil)
+      else
+        OpenStruct.new(success?: false, shipment: nil, errors: shipment.errors.full_messages)
+      end
     end
   end
 end

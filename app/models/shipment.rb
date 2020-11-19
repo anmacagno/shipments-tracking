@@ -5,5 +5,5 @@ class Shipment < ApplicationRecord
   enum notification_status: [:pending, :published], _prefix: :notification_status
 
   validates :carrier, :tracking_reference, presence: true
-  validates :carrier, inclusion: { in: CARRIERS }
+  validates :carrier, inclusion: { in: CARRIERS }, unless: -> { carrier.blank? }
 end
