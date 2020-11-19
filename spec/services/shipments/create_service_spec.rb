@@ -6,14 +6,14 @@ RSpec.describe Shipments::CreateService, type: :service do
       let(:params) { { carrier: 'sandbox', tracking_reference: '123456' } }
       let(:subject) { described_class.call(params) }
 
-      it 'should create a shipment for sandbox carrier' do
+      it 'should create a shipment with carrier sandbox' do
         params[:carrier] = 'sandbox'
         expect(subject.success?).to be true
         expect(subject.shipment).to be_instance_of(Shipment)
         expect(subject.errors).to be_nil
       end
 
-      it 'should create a shipment for fedex carrier' do
+      it 'should create a shipment with carrier fedex' do
         params[:carrier] = 'fedex'
         expect(subject.success?).to be true
         expect(subject.shipment).to be_instance_of(Shipment)
@@ -25,28 +25,34 @@ RSpec.describe Shipments::CreateService, type: :service do
       let(:params) { { carrier: 'sandbox', tracking_reference: '123456' } }
       let(:subject) { described_class.call(params) }
 
-      it 'should not create a shipment for empty carrier' do
+      it 'should not create a shipment with an empty carrier' do
         params[:carrier] = ''
         expect(subject.success?).to be false
         expect(subject.shipment).to be_nil
-        expect(subject.errors).to eq(["Carrier can't be blank"])
+        expect(subject.errors).to eq(
+          ["Carrier can't be blank"]
+        )
       end
 
-      it 'should not create a shipment for dhl carrier' do
+      it 'should not create a shipment with carrier dhl' do
         params[:carrier] = 'dhl'
         expect(subject.success?).to be false
         expect(subject.shipment).to be_nil
-        expect(subject.errors).to eq(["Carrier is not included in the list"])
+        expect(subject.errors).to eq(
+          ["Carrier is not included in the list"]
+        )
       end
 
-      it 'should not create a shipment for empty tracking reference' do
+      it 'should not create a shipment with an empty tracking reference' do
         params[:tracking_reference] = ''
         expect(subject.success?).to be false
         expect(subject.shipment).to be_nil
-        expect(subject.errors).to eq(["Tracking reference can't be blank"])
+        expect(subject.errors).to eq(
+          ["Tracking reference can't be blank"]
+        )
       end
 
-      it 'should not create a shipment for empty carrier and empty tracking reference' do
+      it 'should not create a shipment with an empty carrier and tracking reference' do
         params[:carrier] = ''
         params[:tracking_reference] = ''
         expect(subject.success?).to be false

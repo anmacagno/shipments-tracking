@@ -7,8 +7,11 @@ RSpec.describe 'Shipments', type: :request do
       before { post '/shipments', params: params }
 
       it 'creates a shipment' do
-        expect(JSON.parse(response.body)['carrier']).to eq('sandbox')
-        expect(JSON.parse(response.body)['tracking_reference']).to eq('123456')
+        json = JSON.parse(response.body)
+        expect(json['carrier']).to eq('sandbox')
+        expect(json['tracking_reference']).to eq('123456')
+        expect(json['tracking_status']).to eq('created')
+        expect(json['notification_status']).to eq('pending')
       end
 
       it 'returns status code 201' do
