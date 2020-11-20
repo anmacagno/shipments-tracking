@@ -12,7 +12,8 @@ module Steps
     end
 
     def track_shipment(shipment)
-      'delivered'
+      tracker = TrackerFactory.for(carrier, shipment)
+      tracker.track_status
     end
   end
 end
