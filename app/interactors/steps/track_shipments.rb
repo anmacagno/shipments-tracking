@@ -19,7 +19,8 @@ module Steps
         tracker = TrackerFactory.for(carrier, shipment)
         tracker.track_status
       rescue FedexServiceError => e
-        context.fail!(error: e.message)
+        Rails.logger.info(e.message)
+        nil
       end
     end
   end

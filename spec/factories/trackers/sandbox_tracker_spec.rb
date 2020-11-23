@@ -6,7 +6,7 @@ RSpec.describe Trackers::SandboxTracker, type: :factory do
     let(:subject) { described_class.new(shipment) }
 
     it 'should return the correct status' do
-      expect(subject.track_status).to eq('delivered')
+      expect(subject.track_status).to eq(Shipment.tracking_statuses[:delivered])
     end
   end
 end

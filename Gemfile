@@ -28,7 +28,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 # Interactor
 gem 'interactor-rails', '~> 2.0'
 
-# Fedex
+# FedEx
 gem 'fedex', '~> 3.0'
 
 # AWS SDK

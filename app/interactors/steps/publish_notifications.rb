@@ -2,11 +2,11 @@ module Steps
   class PublishNotifications
     include Interactor
 
-    delegate :shipments, to: :context
+    delegate :shipments, :statuses, to: :context
 
     def call
       context.published = shipments.each_with_object([]) do |shipment, array|
-        array.push(shipment) if publish_notification(shipment)
+        array.push(shipment) if statuses[shipment.id] && publish_notification(shipment)
       end
     end
 

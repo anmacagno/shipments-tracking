@@ -6,7 +6,8 @@ module Steps
 
     def call
       shipments.each do |shipment|
-        update_shipment(shipment, statuses[shipment.id])
+        tracking_status = statuses[shipment.id]
+        update_shipment(shipment, tracking_status) if tracking_status
       end
     end
 

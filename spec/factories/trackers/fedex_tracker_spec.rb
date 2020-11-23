@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Trackers::FedexTracker, type: :factory do
   describe '#track_status' do
     before do
-      tracking_information = Fedex::TrackingInformation.new(status_description: 'delivered')
+      tracking_information = Fedex::TrackingInformation.new(status_code: 'DL')
       allow_any_instance_of(FedexService).to receive(:track).and_return(tracking_information)
     end
 
@@ -11,7 +11,7 @@ RSpec.describe Trackers::FedexTracker, type: :factory do
     let(:subject) { described_class.new(shipment) }
 
     it 'should return the correct status' do
-      expect(subject.track_status).to eq('delivered')
+      expect(subject.track_status).to eq(Shipment.tracking_statuses[:delivered])
     end
   end
 end
