@@ -1,7 +1,8 @@
 module Trackers
   class FedexTracker < BaseTracker
     def track_status
-      'exception'
+      tracking_information = FedexService.instance.track(shipment.tracking_reference)
+      tracking_information.status
     end
   end
 end

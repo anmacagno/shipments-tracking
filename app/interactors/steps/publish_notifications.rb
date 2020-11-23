@@ -13,7 +13,13 @@ module Steps
     private
 
     def publish_notification(shipment)
-      shipment.notification_status_published!
+      Rails.logger.info("Publishing shipment '#{shipment.tracking_reference}'")
+      begin
+        SnsService.instance.publish(shipment)
+        shipment.notification_status_published!
+      rescue SnsServiceError => e
+        context.fail!(error: e.message)
+      end
     end
   end
 end

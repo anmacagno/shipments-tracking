@@ -11,9 +11,16 @@ module Steps
       context.statuses.delete_if { |key, value| value.blank? }
     end
 
+    private
+
     def track_shipment(shipment)
-      tracker = TrackerFactory.for(carrier, shipment)
-      tracker.track_status
+      Rails.logger.info("Tracking shipment '#{shipment.tracking_reference}'")
+      begin
+        tracker = TrackerFactory.for(carrier, shipment)
+        tracker.track_status
+      rescue FedexServiceError => e
+        context.fail!(error: e.message)
+      end
     end
   end
 end
