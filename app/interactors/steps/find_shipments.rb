@@ -15,7 +15,7 @@ module Steps
     private
 
     def find_shipments
-      Shipment.where(carrier: carrier).notification_status_pending
+      Shipment.where(carrier: carrier).notification_status_pending.order(id: :asc)
     end
   end
 end
