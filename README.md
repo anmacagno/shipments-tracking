@@ -9,21 +9,21 @@ The API consists of an endpoint for creating shipments and a task for synchroniz
 The idea is that microservice clients who want to get the status of a shipment make a POST request to the shipments creation endpoint. Then, every certain period of time, the microservice must execute the synchronization task which is responsible for:
 
 1) Search shipments with pending notifications.
-2) Obtain the status of shipments by consulting an external API.
+2) Obtain the status of shipments by consulting an external service.
 3) Update the status of shipments in the microservice database.
-4) Notify the status of shipments to a AWS SNS topic.
+4) Notify the status of shipments to a notification topic.
 
 ### AWS services
 
-The communication of notifications about the status of shipments is done in an asynchronous manner. For this I used a pub/sub pattern supported in the cloud by AWS SNS and SQS services.
+The communication of notifications about the status of shipments is done in an asynchronous manner. For this I used a pub/sub pattern supported in the cloud by AWS.
 
-https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html
+- [Fanout to Amazon SQS queues](https://docs.aws.amazon.com/sns/latest/dg/sns-sqs-as-subscriber.html)
 
 I used SNS, SQS and Cognito.
 
-https://aws.amazon.com/sns/
-https://aws.amazon.com/sqs/
-https://aws.amazon.com/cognito/
+- [Amazon Simple Notification Service](https://aws.amazon.com/sns/)
+- [Amazon Simple Queue Service](https://aws.amazon.com/sqs/)
+- [Amazon Cognito](https://aws.amazon.com/cognito/)
 
 ### Prerequisites
 
@@ -68,14 +68,18 @@ $ rails server
 
 POST http://localhost:3000/shipments
 
+```json
 {
   "shipment": {
     "carrier": "sandbox",
     "tracking_reference": "001"
   }
 }
+```
 
 ### Run the synchronization script
+
+The script syncs shipments for a given carrier (sandbox or fedex).
 
 ```bash
 $ rake shipments:synchronize[sandbox]
@@ -95,9 +99,7 @@ These are the gems that I added to the project:
 
 ### Project structure overview
 
-These are the folders and files created/modified.
-
-Where to start? Look at the file lib/tasks/shipments.rake.
+These are the folders and files created/modified. Where to start? Look at the file **lib/tasks/shipments.rake**.
 
 ```
 ├── app
