@@ -3,7 +3,8 @@ class SnsService
 
   PARAMS = {
     region: 'us-east-1',
-    identity_pool_id: 'us-east-1:89b0ac5d-4e52-4a69-9939-38d03d8f1278',
+    access_key_id: 'AKIAQVVTRAORVTBBE35J',
+    secret_access_key: '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',
     topic: 'arn:aws:sns:us-east-1:046547403683:ShipmentNotificationCreated'
   }
 
@@ -12,13 +13,10 @@ class SnsService
   attr_accessor :topic
 
   def initialize
-    credentials = Aws::CognitoIdentity::CognitoIdentityCredentials.new(
-      region: PARAMS[:region],
-      identity_pool_id: PARAMS[:identity_pool_id]
-    )
     client = Aws::SNS::Client.new(
       region: PARAMS[:region],
-      credentials: credentials
+      access_key_id: PARAMS[:access_key_id],
+      secret_access_key: PARAMS[:secret_access_key]
     )
     resource = Aws::SNS::Resource.new(
       client: client

@@ -33,7 +33,6 @@ gem 'fedex', '~> 3.0'
 
 # AWS SDK
 gem 'aws-sdk-sns', '~> 1.0'
-gem 'aws-sdk-cognitoidentity', '~> 1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

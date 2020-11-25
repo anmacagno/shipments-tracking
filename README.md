@@ -93,7 +93,6 @@ These are the gems that I added to the project:
 - interactor-rails
 - fedex
 - aws-sdk-sns
-- aws-sdk-cognitoidentity
 - rspec-rails
 - shoulda-matchers
 

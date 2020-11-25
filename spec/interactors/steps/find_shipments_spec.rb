@@ -5,6 +5,15 @@ RSpec.describe Steps::FindShipments, type: :interactor do
 
   describe '.call' do
     context 'with valid params' do
+      before do
+        Shipment.create(
+          [
+            { carrier: 'fedex', tracking_reference: '001' },
+            { carrier: 'fedex', tracking_reference: '002' }
+          ]
+        )
+      end
+
       let(:carrier) { 'fedex' }
 
       it 'succeeds' do
@@ -12,7 +21,7 @@ RSpec.describe Steps::FindShipments, type: :interactor do
       end
 
       it 'provides shipments' do
-        expect(context.shipments).to eq([])
+        expect(context.shipments.size).to eq(2)
       end
     end
 
