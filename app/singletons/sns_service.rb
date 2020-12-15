@@ -3,8 +3,8 @@ class SnsService
 
   PARAMS = {
     region: 'us-east-1',
-    access_key_id: 'AKIAQVVTRAORVTBBE35J',
-    secret_access_key: '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',
+    access_key_id: ENV['ACCESS_KEY_ID'],
+    secret_access_key: ENV['SECRET_ACCESS_KEY'],
     topic: 'arn:aws:sns:us-east-1:046547403683:ShipmentNotificationCreated'
   }
 
